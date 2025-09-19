@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // Axios instance for the FastAPI backend (Chat)
-const fastApi = axios.create({
-  baseURL: process.env.REACT_APP_FASTAPI_URL,
+const instance = axios.create({
+  baseURL: import.meta.env.VITE_FASTAPI_URL || "http://localhost:8000",
 });
 
-export default fastApi;
+export default instance;
