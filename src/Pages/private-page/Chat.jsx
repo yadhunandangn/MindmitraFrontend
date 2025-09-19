@@ -578,14 +578,6 @@ ${statusBadge}`;
     }, 5);
   };
 
-  // Note: we have two typeAIMessage helpers above. For backwards compatibility, keep original name usage:
-  // If other code expects typeAIMessage (we used it earlier inside this file), alias:
-  // (we already used typeAIMessage defined earlier for appointment flow; keep that one as the main)
-  // But to avoid confusion, we'll keep both: typeAIMessage (the main one) and typeAIMessageOriginal (preserved).
-
-  // -------------------------
-  // Auto-scroll
-  // -------------------------
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTo({
