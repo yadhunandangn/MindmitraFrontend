@@ -51,10 +51,7 @@ export const Reg = () => {
       setLoading(true);
       const response = await authApi.post("/auth/verify-otp", { email, otp });
       if (response.data === "OTP verified successfully") {
-        setFeedback({
-          type: "success",
-          msg: "✅ Email verified successfully!",
-        });
+        setFeedback({ type: "success", msg: "✅ Email verified successfully!" });
         setOtpVerified(true);
       } else {
         setFeedback({ type: "error", msg: response.data || "Invalid OTP" });
@@ -73,7 +70,6 @@ export const Reg = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    // ✅ New check: make sure OTP is verified first
     if (!otpVerified) {
       setFeedback({
         type: "error",
@@ -82,7 +78,6 @@ export const Reg = () => {
       return;
     }
 
-    // Check for empty fields
     if (!username || !fullName || !password || !email) {
       setFeedback({
         type: "error",
@@ -139,7 +134,20 @@ export const Reg = () => {
           </p>
         )}
 
-        <form onSubmit={handleRegister} className="space-y-5">
+        {/* Form */}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (!otpSent) {
+              handleSendOtp(); // Enter = Send OTP
+            } else if (!otpVerified) {
+              handleVerifyOtp(); // Enter = Verify OTP
+            } else {
+              handleRegister(e); // Enter = Register
+            }
+          }}
+          className="space-y-5"
+        >
           {/* Email */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
