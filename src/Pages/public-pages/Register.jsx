@@ -51,7 +51,10 @@ export const Reg = () => {
       setLoading(true);
       const response = await authApi.post("/auth/verify-otp", { email, otp });
       if (response.data === "OTP verified successfully") {
-        setFeedback({ type: "success", msg: "✅ Email verified successfully!" });
+        setFeedback({
+          type: "success",
+          msg: "✅ Email verified successfully!",
+        });
         setOtpVerified(true);
       } else {
         setFeedback({ type: "error", msg: response.data || "Invalid OTP" });
@@ -69,6 +72,17 @@ export const Reg = () => {
   // Step 3: Register
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    // ✅ New check: make sure OTP is verified first
+    if (!otpVerified) {
+      setFeedback({
+        type: "error",
+        msg: "Please verify your email with OTP before registering.",
+      });
+      return;
+    }
+
+    // Check for empty fields
     if (!username || !fullName || !password || !email) {
       setFeedback({
         type: "error",
