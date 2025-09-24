@@ -157,7 +157,7 @@ export const Home = () => {
                 {
                   step: "1",
                   title: "Start Chat",
-                  desc: "Begin chatting instantly, no signup required.",
+                  desc: "Signup and Start Chatting.",
                 },
                 {
                   step: "2",
